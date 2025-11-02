@@ -22,7 +22,9 @@ jobs:
         node-version: '18'  # phiên bản Node tương thích với Expo
 
     - name: Install dependencies
-      run: npm install --legacy-peer-deps
+      run: |
+        npm ci --legacy-peer-deps || echo "npm ci failed, falling back to npm install"
+        npm install --legacy-peer-deps
 
     - name: Install Expo CLI
       run: npm install -g expo-cli
