@@ -5,12 +5,14 @@
   "build": {
     "production": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "npmInstallFlags": ["--legacy-peer-deps"]
       }
     },
     "development": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "npmInstallFlags": ["--legacy-peer-deps"]
       }
     }
   },
