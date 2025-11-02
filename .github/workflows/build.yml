@@ -40,7 +40,7 @@ jobs:
 
     - name: Configure Expo Project
       run: |
-        # Lệnh này sẽ tạo EAS project cho GitHub Actions mà không cần nhập liệu
+        # Kiểm tra xem đã đăng nhập hay chưa, nếu chưa thì đăng nhập bằng token
         eas whoami || eas login --token ${{ secrets.EXPO_TOKEN }}
 
     - name: Build Android APK using EAS
