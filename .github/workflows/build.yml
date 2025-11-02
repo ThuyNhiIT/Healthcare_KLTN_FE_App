@@ -38,6 +38,11 @@ jobs:
     - name: Install EAS CLI
       run: npm install -g eas-cli
 
+    - name: Configure Expo Project
+      run: |
+        # Lệnh này sẽ tạo EAS project cho GitHub Actions mà không cần nhập liệu
+        eas whoami || eas login --token ${{ secrets.EXPO_TOKEN }}
+
     - name: Build Android APK using EAS
       run: |
         eas build -p android --non-interactive
