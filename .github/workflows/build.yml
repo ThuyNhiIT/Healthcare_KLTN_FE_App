@@ -19,34 +19,27 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'  # Node version tương thích với Expo
+        node-version: '18'
 
     - name: Install dependencies
       run: |
-        npm install --legacy-peer-deps  # Cài đặt dependencies với --legacy-peer-deps để tránh xung đột
+        npm install --legacy-peer-deps
 
     - name: Commit new package-lock.json
-      if: github.actor != 'github-actions[bot]'  # Điều kiện để không chạy nếu commit là từ GitHub Actions bot
+      if: github.actor != 'github-actions[bot]'
       run: |
-        # Cấu hình thông tin commit của bot
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        
-        # Thêm và commit lại package-lock.json
         git add package-lock.json
         git commit -m "Rebuild package-lock.json via GitHub Actions" || echo "No changes to commit"
-        
-        # Pull remote changes và rebase để tránh xung đột
         git pull origin main --rebase || echo "Pull failed, continuing with push"
-        
-        # Push thay đổi lên remote
         git push origin main
 
     - name: Install EAS CLI
-      run: npm install -g eas-cli  # Cài đặt EAS CLI để thay thế expo-cli
+      run: npm install -g eas-cli
 
     - name: Build Android APK using EAS
       run: |
-        eas build -p android  # Dùng EAS Build để build APK
+        eas build -p android --non-interactive  # Thêm --non-interactive để tránh yêu cầu nhập liệu
       env:
         EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # Chắc chắn rằng bạn đã set EXPO_TOKEN trong GitHub Secrets
