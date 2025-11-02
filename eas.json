@@ -5,7 +5,10 @@
   "build": {
     "production": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "npm": {
+          "installArgs": ["--legacy-peer-deps"]
+        }
       }
     }
   },
