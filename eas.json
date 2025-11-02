@@ -6,8 +6,8 @@
     "production": {
       "android": {
         "buildType": "apk",
-        "npm": {
-          "installArgs": ["--legacy-peer-deps"]
+        "hooks": {
+          "preInstall": "npm install --legacy-peer-deps"
         }
       }
     }
