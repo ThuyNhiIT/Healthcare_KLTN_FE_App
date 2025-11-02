@@ -1,0 +1,33 @@
+name: Build React Native Expo App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # phiên bản Node tương thích với Expo
+
+    - name: Install dependencies
+      run: npm install --legacy-peer-deps
+
+    - name: Install Expo CLI
+      run: npm install -g expo-cli
+
+    - name: Build Android APK
+      run: expo build:android -t apk
+      env:
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
