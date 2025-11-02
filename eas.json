@@ -5,12 +5,14 @@
   "build": {
     "production": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "resourceClass": "large"  
       }
     },
     "development": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "resourceClass": "small"  
       }
     }
   },
