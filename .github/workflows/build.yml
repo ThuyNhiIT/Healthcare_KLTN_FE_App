@@ -42,11 +42,11 @@ jobs:
         # Push thay đổi lên remote
         git push origin main
 
-    - name: Install Expo CLI
-      run: npm install -g expo-cli  # Đây là bước cài đặt Expo CLI nếu bạn vẫn muốn dùng expo-cli cũ
+    - name: Install EAS CLI
+      run: npm install -g eas-cli  # Cài đặt EAS CLI để thay thế expo-cli
 
-    - name: Build Android APK using npx
+    - name: Build Android APK using EAS
       run: |
-        npx expo build:android -t apk  # Dùng npx để chạy expo-cli mới nhất mà không cần cài đặt toàn cục
+        eas build -p android  # Dùng EAS Build để build APK
       env:
         EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # Chắc chắn rằng bạn đã set EXPO_TOKEN trong GitHub Secrets
