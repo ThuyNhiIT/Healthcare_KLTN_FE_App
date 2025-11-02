@@ -42,4 +42,4 @@ jobs:
       run: |
         eas build -p android --non-interactive  # Thêm --non-interactive để tránh yêu cầu nhập liệu
       env:
-        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # Chắc chắn rằng bạn đã set EXPO_TOKEN trong GitHub Secrets
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # Sử dụng EXPO_TOKEN từ GitHub Secrets
