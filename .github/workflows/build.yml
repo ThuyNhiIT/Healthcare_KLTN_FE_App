@@ -40,6 +40,6 @@ jobs:
 
     - name: Build Android APK using EAS
       run: |
-        eas build -p android --non-interactive  # Thêm --non-interactive để tránh yêu cầu nhập liệu
+        eas build -p android --non-interactive
       env:
-        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # Sử dụng EXPO_TOKEN từ GitHub Secrets
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
