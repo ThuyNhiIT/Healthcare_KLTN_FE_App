@@ -1,0 +1,49 @@
+name: EAS Build
+
+on:
+  push:
+    branches:
+      - main  # build khi push vào main branch
+  workflow_dispatch:  # cho phép trigger thủ công từ GitHub
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout source code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2️⃣ Cài Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 3️⃣ Cài dependencies dự án
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # 4️⃣ Cài EAS CLI
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      # 5️⃣ Login EAS bằng token
+      - name: Authenticate EAS
+        env:
+          EAS_ACCESS_TOKEN: ${{ secrets.EAS_ACCESS_TOKEN }}
+        run: eas login --token $EAS_ACCESS_TOKEN
+
+      # 6️⃣ Build APK production
+      - name: Build Android APK
+        run: eas build --platform android --profile production --non-interactive
+
+      # 7️⃣ Lưu artifact APK (tuỳ chọn)
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-apk
+          path: |
+            dist/*.apk
