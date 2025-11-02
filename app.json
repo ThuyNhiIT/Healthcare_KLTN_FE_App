@@ -12,7 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "scheme": "diateach_app",
+    "scheme": ["diateach_app"],  // Đổi thành mảng
     "ios": {
       "supportsTablet": true
     },
