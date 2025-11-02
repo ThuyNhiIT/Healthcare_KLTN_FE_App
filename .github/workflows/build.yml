@@ -35,13 +35,13 @@ jobs:
         git pull origin main --rebase || echo "Pull failed, continuing with push"
         git push origin main
 
-    - name: Install EAS CLI
-      run: npm install -g eas-cli
+    - name: Install latest EAS CLI
+      run: npm install -g eas-cli@latest
 
     - name: Configure Expo Project
       run: |
         # Kiểm tra xem đã đăng nhập hay chưa, nếu chưa thì đăng nhập bằng token
-        eas whoami || eas login --token ${{ secrets.EXPO_TOKEN }}
+        eas whoami || (echo "Not logged in, logging in with token..." && echo ${{ secrets.EXPO_TOKEN }} | eas login --token)
 
     - name: Build Android APK using EAS
       run: |
