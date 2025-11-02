@@ -24,7 +24,6 @@ jobs:
     - name: Install dependencies
       run: |
         npm install --legacy-peer-deps  # Cài đặt dependencies với --legacy-peer-deps để tránh xung đột
-        npm install react-native         # Cài đặt react-native nếu chưa có
 
     - name: Commit new package-lock.json
       if: github.actor != 'github-actions[bot]'  # Điều kiện để không chạy nếu commit là từ GitHub Actions bot
@@ -44,9 +43,10 @@ jobs:
         git push origin main
 
     - name: Install Expo CLI
-      run: npm install -g expo-cli
+      run: npm install -g expo-cli  # Đây là bước cài đặt Expo CLI nếu bạn vẫn muốn dùng expo-cli cũ
 
-    - name: Build Android APK
-      run: expo build:android -t apk
+    - name: Build Android APK using npx
+      run: |
+        npx expo build:android -t apk  # Dùng npx để chạy expo-cli mới nhất mà không cần cài đặt toàn cục
       env:
-        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # Chắc chắn rằng bạn đã set EXPO_TOKEN trong GitHub Secrets
