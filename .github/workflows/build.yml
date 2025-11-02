@@ -19,12 +19,21 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'  # phiên bản Node tương thích với Expo
+        node-version: '18'  # Node version tương thích với Expo
+
+    - name: Remove old package-lock.json
+      run: rm -f package-lock.json  # Xóa file package-lock.json nếu chưa xóa trước đó
 
     - name: Install dependencies
+      run: npm install --legacy-peer-deps  # Tạo lại package-lock.json và cài đặt dependencies
+
+    - name: Commit new package-lock.json
       run: |
-        npm ci --legacy-peer-deps || echo "npm ci failed, falling back to npm install"
-        npm install --legacy-peer-deps
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git add package-lock.json
+        git commit -m "Rebuild package-lock.json via GitHub Actions" || echo "No changes to commit"
+        git push
 
     - name: Install Expo CLI
       run: npm install -g expo-cli
